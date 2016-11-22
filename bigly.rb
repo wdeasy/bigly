@@ -24,8 +24,10 @@ bot.command :bigly do |_event, *args|
         else
           word << "#{a}"
         end
+        word << "\u{200B}"
       end
     end
+
     words << word
   end
 
