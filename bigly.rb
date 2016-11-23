@@ -11,24 +11,27 @@ bot.command :bigly do |_event, *args|
   args.each do |arg|
     word = ''
     unless (arg.count ":").to_i > 1
-      arg.downcase!
-      arg.split("").each do |a|
-        if a =~ /[a-z]/
-          word << ":regional_indicator_#{a}:"
-        elsif a =~ /[0-9]/
-          word << ":#{a.to_i.humanize}:"
-        elsif a == "#"
-          word << ":hash:" 
-        elsif a == "*"
-          word << ":asterisk:"
-        else
-          word << "#{a}"
+      if arg[1] == "@"
+        word = arg.to_s
+      else
+        arg.downcase!
+        arg.split("").each do |a|
+          if a =~ /[a-z]/
+            word << ":regional_indicator_#{a}:"
+          elsif a =~ /[0-9]/
+            word << ":#{a.to_i.humanize}:"
+          elsif a == "#"
+            word << ":hash:"
+          elsif a == "*"
+            word << ":asterisk:"
+          else
+            word << "#{a}"
+          end
+          word << "\u{200B}"
         end
-        word << "\u{200B}"
       end
+      words << word
     end
-
-    words << word
   end
 
   msg = ''
